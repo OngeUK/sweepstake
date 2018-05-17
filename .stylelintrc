@@ -1,9 +1,14 @@
 {
-	"processors": ["stylelint-processor-styled-components"],
+	"processors": [
+		"stylelint-processor-styled-components"
+	],
 	"extends": [
 		"stylelint-config-styled-components"
 	],
-	"plugins": ["stylelint-order"],
+	"syntax": "scss",
+	"plugins": [
+		"stylelint-order"
+	],
 	"rules": {
 		"color-no-invalid-hex": true,
 		"font-family-name-quotes": "always-unless-keyword",
@@ -37,7 +42,9 @@
 		"property-no-unknown": [
 			true,
 			{
-				"ignoreProperties": ["font-range"]
+				"ignoreProperties": [
+					"font-range"
+				]
 			}
 		],
 		"property-no-vendor-prefix": true,
@@ -48,8 +55,12 @@
 		"declaration-colon-space-before": "never",
 		"declaration-empty-line-before": "never",
 		"declaration-property-unit-blacklist": {
-			"font-size": ["pt"],
-			"line-height": ["pt"]
+			"font-size": [
+				"pt"
+			],
+			"line-height": [
+				"pt"
+			]
 		},
 		"declaration-block-no-duplicate-properties": true,
 		"declaration-block-no-redundant-longhand-properties": true,
@@ -90,15 +101,24 @@
 		"rule-empty-line-before": [
 			"always-multi-line",
 			{
-				"ignore": ["after-comment", "inside-block"]
+				"ignore": [
+					"after-comment",
+					"inside-block"
+				]
 			}
 		],
-		"at-rule-blacklist": ["extend"],
+		"at-rule-blacklist": [
+			"extend"
+		],
 		"at-rule-empty-line-before": [
 			"always",
 			{
-				"except": ["blockless-after-same-name-blockless"],
-				"ignore": ["after-comment"]
+				"except": [
+					"blockless-after-same-name-blockless"
+				],
+				"ignore": [
+					"after-comment"
+				]
 			}
 		],
 		"at-rule-name-case": "lower",
@@ -106,7 +126,12 @@
 		"at-rule-no-unknown": [
 			true,
 			{
-				"ignoreAtRules": ["include", "mixin", "if", "else"]
+				"ignoreAtRules": [
+					"include",
+					"mixin",
+					"if",
+					"else"
+				]
 			}
 		],
 		"at-rule-no-vendor-prefix": true,
@@ -120,7 +145,10 @@
 		"no-empty-source": true,
 		"no-eol-whitespace": true,
 		"no-extra-semicolons": true,
-		"order/order": ["custom-properties", "declarations"],
+		"order/order": [
+			"custom-properties",
+			"declarations"
+		],
 		"order/properties-alphabetical-order": true
 	}
 }
