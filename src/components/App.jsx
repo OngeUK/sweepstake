@@ -10,23 +10,32 @@ export class App extends Component {
 
 	componentWillMount() {
 		this.setState({
-			counter: 1
+			counter: 1,
+			people: dummyData,
+			assigned: []
 		});
 	}
 
-	nextTeam(nextItem) {
+	nextTeam(currentItem, nextIndex) {
+		const {people, assigned} = this.state;
+
+		assigned.push(`${currentItem} - ${people.splice(currentItem, 1)}`);
+
 		this.setState({
-			counter: nextItem
+			counter: nextIndex,
+			people: people,
+			assigned: assigned
 		});
 	}
 
 	render() {
+		const {people, counter, assigned} = this.state;
 		let output = [];
 
-		for (let i = 1; i <= 32; i++) {
+		for (let i = 0; i < people.length; i++) {
 			const active = i === this.state.counter;
 
-			output.push(<AssignTeam data={dummyData} id={i} counter={this.state.counter} nextTeam={this.nextTeam} active={active} />);
+			output.push(<AssignTeam data={people} id={i} counter={counter} nextTeam={this.nextTeam} assigned={assigned} active={active} />);
 		}
 
 		return <div>{output}</div>;

@@ -25,16 +25,15 @@ export class AssignTeam extends Component {
 	}
 
 	startTimer() {
-		const {id, counter, nextTeam} = this.props;
+		const {counter, nextTeam, active} = this.props;
 
-		if (id === counter) {
+		if (active) {
 			this.intervalId = setInterval(this.cycleNames.bind(this), 75);
 
 			setTimeout(() => {
 				clearInterval(this.intervalId);
-				console.log(this.state.data[this.state.currentCount]);
-				nextTeam(counter + 1);
-			}, 2000);
+				nextTeam(this.state.currentCount, counter + 1);
+			}, 2000); // Randomise this number
 		}
 	}
 
