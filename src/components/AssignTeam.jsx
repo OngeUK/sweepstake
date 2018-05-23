@@ -1,6 +1,8 @@
 import {Component, h} from "preact";
 import styled from "styled-components";
+const random = require("lodash/random"); // https://lodash.com/docs/4.17.5#random
 
+// Styled components
 const Title = styled.h1`
 	font-family: sans-serif;
 	text-align: center;
@@ -33,28 +35,37 @@ export class AssignTeam extends Component {
 			setTimeout(() => {
 				clearInterval(this.intervalId);
 				nextTeam(this.state.currentCount, counter + 1);
-			}, 2000); // Randomise this number
+			}, random(1850, 2150)); // Randomise how long names cycle, in ms
 		}
 	}
 
 	cycleNames() {
+		// Iterate to the next item
 		this.setState({
 			currentCount: this.state.currentCount + 1
 		});
 
+		// Restart cycle when we reach the end
 		if (this.state.currentCount === this.state.data.length) {
 			this.setState({currentCount: 0});
 		}
 	}
 
 	render() {
-		const {id} = this.props;
+		const {id, assigned, active} = this.props;
+		let output = "";
+
+		if (typeof assigned[id] !== "undefined") {
+			// Name already assigned
+			output = assigned[id];
+		} else if (active) {
+			// Show names cycling
+			output = `${id} ${this.state.data[this.state.currentCount]}`;
+		}
 
 		return (
 			<div>
-				<Title>
-					{id} {this.state.data[this.state.currentCount]}
-				</Title>
+				<Title>{output}</Title>
 			</div>
 		);
 	}

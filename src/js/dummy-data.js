@@ -1,7 +1,7 @@
 export const dummyData = [
 	"Agent Johnson",
 	"Alice",
-	"Beared Ben",
+	"Bearded Ben",
 	"Benito",
 	"Big Dave",
 	"Bruce",
@@ -9,7 +9,6 @@ export const dummyData = [
 	"Clare from sales",
 	"Clean-shaven Ben",
 	"Darren Darren",
-	"Dwayne",
 	"Ellen",
 	"Emma B",
 	"Emma C",
@@ -29,6 +28,7 @@ export const dummyData = [
 	"Special Agent Johnson",
 	"Tattooed Trish",
 	"The Sherminator",
+	"Trevor Philips",
 	"Vincent",
 	"Vitas"
 ];
