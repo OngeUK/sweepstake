@@ -3,9 +3,9 @@ import styled from "styled-components";
 const random = require("lodash/random"); // https://lodash.com/docs/4.17.5#random
 
 // Styled components
-const Title = styled.h1`
-	font-family: sans-serif;
-	text-align: center;
+const Title = styled.span`
+	/* font-family: sans-serif;
+	text-align: center; */
 `;
 
 export class AssignTeam extends Component {
@@ -55,18 +55,14 @@ export class AssignTeam extends Component {
 		const {id, assigned, active} = this.props;
 		let output = "";
 
-		if (typeof assigned[id] !== "undefined") {
+		if (active) {
+			// Show names cycling
+			output = this.state.data[this.state.currentCount];
+		} else if (typeof assigned[id] !== "undefined") {
 			// Name already assigned
 			output = assigned[id];
-		} else if (active) {
-			// Show names cycling
-			output = `${id} ${this.state.data[this.state.currentCount]}`;
 		}
 
-		return (
-			<div>
-				<Title>{output}</Title>
-			</div>
-		);
+		return <Title>{output}</Title>;
 	}
 }
