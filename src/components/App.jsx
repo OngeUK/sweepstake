@@ -1,6 +1,8 @@
 import {Component, h} from "preact";
 import {AssignTeam} from "./AssignTeam";
 import {dummyData} from "../js/dummy-data";
+import {EmailButton} from "./EmailButton";
+import {Form} from "./Form";
 import styled from "styled-components";
 import {TeamName} from "./TeamName";
 import {teams} from "./../js/teams";
@@ -18,8 +20,7 @@ export class App extends Component {
 		super();
 		this.nextTeam = this.nextTeam.bind(this);
 		this.start = this.start.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.useDummyData = this.useDummyData.bind(this);
+		this.setData = this.setData.bind(this);
 	}
 
 	componentWillMount() {
@@ -37,28 +38,10 @@ export class App extends Component {
 		});
 	}
 
-	handleSubmit(e) {
-		// TO DO - error if over 32 lines entered
-		// Offer 2x or 3x teams per person if people.length % 2 is whole number
-		e.preventDefault();
-
-		// Get user submitted people list, remove any empty lines
-		const people = e.target[0].value
-			.trim()
-			.split("\n")
-			.filter((item) => item !== "");
-
-		// Have enough teams for the number of players
-		this.setState({
-			teams: shuffle(teams.slice(0, people.length)),
-			people: shuffle(people)
-		});
-	}
-
-	useDummyData() {
+	setData(teams, people) {
 		this.setState({
 			teams: shuffle(teams),
-			people: shuffle(dummyData)
+			people: shuffle(people)
 		});
 	}
 
@@ -92,13 +75,10 @@ export class App extends Component {
 
 		return (
 			<main>
-				<form onSubmit={this.handleSubmit}>
-					<textarea />
-					<button type="submit">Submit</button>
-				</form>
-				<button onClick={this.useDummyData}>Skip this step and show me an example draw</button>
+				<Form teams={teams} setData={this.setData} dummyData={dummyData} />
 				<section>
-					<button onClick={this.start}>Start</button>
+					<button onClick={this.start}>Start draw</button>
+					<EmailButton people={assigned} teams={teams} />
 					{output}
 				</section>
 			</main>

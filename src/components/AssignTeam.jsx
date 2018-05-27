@@ -8,6 +8,8 @@ const Title = styled.span`
 	text-align: center; */
 `;
 
+// TO DO - scroll to event for active cycling names
+
 export class AssignTeam extends Component {
 	componentWillMount() {
 		this.state = {
