@@ -23,14 +23,13 @@ export class Form extends Component {
 	componentWillMount() {
 		this.setState({
 			peopleCount: 0,
-			error: null
+			error: null,
+			modal: false
 		});
 	}
 
 	handleSubmit(e, setData) {
 		e.preventDefault();
-
-		// TO DO - inform user of teams that will be excluded if less than 32 people are provided
 
 		const {peopleCount} = this.state,
 			peopleList = this.getPeopleList(e.target[0].value);
@@ -47,7 +46,15 @@ export class Form extends Component {
 			this.setState({
 				error: null
 			});
-			setData(teams.slice(0, peopleList.length), peopleList);
+
+			// We don't have enough people for every team
+			if (peopleCount < 32) {
+				this.setState({
+					modal: true
+				});
+			} else {
+				setData(teams.slice(0, peopleList.length), peopleList);
+			}
 		}
 	}
 
@@ -65,18 +72,51 @@ export class Form extends Component {
 		});
 	}
 
+	modalContinue(e, setData) {
+		e.preventDefault();
+
+		const peopleList = this.getPeopleList(document.getElementById("text").value);
+
+		this.setState({
+			modal: false
+		});
+
+		setData(teams.slice(0, peopleList.length), peopleList);
+	}
+
+	modalClose(e) {
+		e.preventDefault();
+
+		this.setState({
+			modal: false
+		});
+	}
+
 	render() {
 		const {teams, setData, dummyData} = this.props,
-			{peopleCount, error} = this.state;
+			{peopleCount, error, modal} = this.state;
 
 		return (
 			<section>
 				<form onSubmit={(e) => this.handleSubmit(e, setData)}>
-					<textarea onInput={(e) => this.displayPeopleCount(e.target.value)} />
+					<textarea id="text" onInput={(e) => this.displayPeopleCount(e.target.value)} />
 					<span>Sweepstake particiants: {peopleCount}</span>
 					<button type="submit">Submit</button>
 					{error !== null && <span>{error}</span>}
 				</form>
+				{modal && (
+					<div>
+						<p>There are more teams than there are people in your sweepstake!</p>
+						<p>That's fine - we can just remove the lowest ranked {32 - peopleCount} teams if you'd like?</p>
+						<p>How would you like to proceed?</p>
+						<button onClick={(e) => this.modalContinue(e, setData)} type="button">
+							Please remove {32 - peopleCount} teams
+						</button>
+						<button onClick={(e) => this.modalClose(e)} type="button">
+							I'll just add some more people
+						</button>
+					</div>
+				)}
 				<button onClick={() => setData(teams, dummyData)}>Skip this step and show me an example draw</button>
 			</section>
 		);

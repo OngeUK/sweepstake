@@ -25,9 +25,10 @@ export class App extends Component {
 
 	componentWillMount() {
 		this.setState({
+			dataInput: true,
 			start: false,
 			counter: 0,
-			teams: teams, // Delete this
+			teams: teams,
 			assigned: []
 		});
 	}
@@ -40,6 +41,7 @@ export class App extends Component {
 
 	setData(teams, people) {
 		this.setState({
+			dataInput: false,
 			teams: shuffle(teams),
 			people: shuffle(people)
 		});
@@ -59,7 +61,7 @@ export class App extends Component {
 	}
 
 	render() {
-		const {people, counter, assigned, teams} = this.state;
+		const {people, counter, assigned, teams, dataInput, start} = this.state;
 		let output = [];
 
 		for (let i = 0; i < teams.length; i++) {
@@ -75,12 +77,14 @@ export class App extends Component {
 
 		return (
 			<main>
-				<Form teams={teams} setData={this.setData} dummyData={dummyData} />
-				<section>
-					<button onClick={this.start}>Start draw</button>
-					<EmailButton people={assigned} teams={teams} />
-					{output}
-				</section>
+				{dataInput && <Form teams={teams} setData={this.setData} dummyData={dummyData} />}
+				{!dataInput && (
+					<section>
+						{!start && <button onClick={this.start}>Start draw</button>}
+						<EmailButton people={assigned} teams={teams} />
+						{output}
+					</section>
+				)}
 			</main>
 		);
 	}

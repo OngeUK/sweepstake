@@ -8,7 +8,7 @@ const Title = styled.span`
 	text-align: center; */
 `;
 
-// TO DO - scroll to event for active cycling names
+// TO DO - scroll to event for active cycling names (use https://github.com/zengabor/zenscroll)
 
 export class AssignTeam extends Component {
 	componentWillMount() {
