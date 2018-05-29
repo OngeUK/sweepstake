@@ -24,7 +24,7 @@ export class TeamName extends Component {
 		const {id, teams} = this.props;
 
 		return (
-			<Wrapper>
+			<Wrapper id={`t${id}`}>
 				<Flag country={setFlag(teams[id].replace(" ", "-").toLowerCase())} />
 				<Name>{teams[id]}</Name>
 			</Wrapper>

@@ -1,14 +1,13 @@
 import {Component, h} from "preact";
 import styled from "styled-components";
 const random = require("lodash/random"); // https://lodash.com/docs/4.17.5#random
+const zenscroll = require("zenscroll");
 
 // Styled components
 const Title = styled.span`
 	/* font-family: sans-serif;
 	text-align: center; */
 `;
-
-// TO DO - scroll to event for active cycling names (use https://github.com/zengabor/zenscroll)
 
 export class AssignTeam extends Component {
 	componentWillMount() {
@@ -37,6 +36,9 @@ export class AssignTeam extends Component {
 			setTimeout(() => {
 				clearInterval(this.intervalId);
 				nextTeam(this.state.currentCount, counter + 1);
+
+				// Ensure active team assignment is on-screen
+				zenscroll.to(document.getElementById(`t${counter}`), 350);
 			}, random(1850, 2150)); // Randomise how long names cycle, in ms
 		}
 	}
