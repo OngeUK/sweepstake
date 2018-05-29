@@ -11,6 +11,7 @@ const Title = styled.span`
 
 export class AssignTeam extends Component {
 	componentWillMount() {
+		// Set initial state
 		this.state = {
 			currentCount: 0,
 			data: this.props.data
@@ -28,6 +29,7 @@ export class AssignTeam extends Component {
 	}
 
 	startTimer() {
+		// Start cycling of names
 		const {counter, nextTeam, active} = this.props;
 
 		if (active) {

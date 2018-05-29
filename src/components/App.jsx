@@ -24,6 +24,7 @@ export class App extends Component {
 	}
 
 	componentWillMount() {
+		// Set initial state
 		this.setState({
 			dataInput: true,
 			start: false,
@@ -34,17 +35,22 @@ export class App extends Component {
 	}
 
 	start() {
+		// Start assigning teams
 		this.setState({
 			start: true
 		});
 	}
 
 	setData(teams, people) {
+		// Set people and team data to use
 		this.setState({
 			dataInput: false,
 			teams: shuffle(teams),
 			people: shuffle(people)
 		});
+
+		// Store data in localStorage
+		localStorage.setItem("data", people);
 	}
 
 	nextTeam(currentItem, nextIndex) {

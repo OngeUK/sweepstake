@@ -21,10 +21,18 @@ import {teams} from "./../js/teams";
 
 export class Form extends Component {
 	componentWillMount() {
+		// Set initial state
 		this.setState({
 			peopleCount: 0,
 			error: null,
 			modal: false
+		});
+	}
+
+	componentDidMount() {
+		// Show counter
+		this.setState({
+			peopleCount: this.getPeopleList(document.getElementById("text").value).length
 		});
 	}
 
@@ -34,6 +42,7 @@ export class Form extends Component {
 		const {peopleCount} = this.state,
 			peopleList = this.getPeopleList(e.target[0].value);
 
+		// Check number of people added is between 8 and 32, show error if not
 		if (peopleCount < 8) {
 			this.setState({
 				error: "Please enter the names of at least 8 people"
@@ -53,6 +62,7 @@ export class Form extends Component {
 					modal: true
 				});
 			} else {
+				// All good - set data for next step
 				setData(teams.slice(0, peopleList.length), peopleList);
 			}
 		}
@@ -67,12 +77,14 @@ export class Form extends Component {
 	}
 
 	displayPeopleCount(formData) {
+		// Show counter
 		this.setState({
 			peopleCount: this.getPeopleList(formData).length
 		});
 	}
 
 	modalContinue(e, setData) {
+		// Close modal and set data for next step
 		e.preventDefault();
 
 		const peopleList = this.getPeopleList(document.getElementById("text").value);
@@ -85,6 +97,7 @@ export class Form extends Component {
 	}
 
 	modalClose(e) {
+		// Close modal, but don't move onto the next step
 		e.preventDefault();
 
 		this.setState({
@@ -99,7 +112,9 @@ export class Form extends Component {
 		return (
 			<section>
 				<form onSubmit={(e) => this.handleSubmit(e, setData)}>
-					<textarea id="text" onInput={(e) => this.displayPeopleCount(e.target.value)} />
+					<textarea id="text" onInput={(e) => this.displayPeopleCount(e.target.value)}>
+						{localStorage.getItem("data").replace(/,/g, "\n")}
+					</textarea>
 					<span>Sweepstake particiants: {peopleCount}</span>
 					<button type="submit">Submit</button>
 					{error !== null && <span>{error}</span>}
