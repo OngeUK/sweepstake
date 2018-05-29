@@ -83,7 +83,22 @@ export class App extends Component {
 
 		return (
 			<main>
-				{dataInput && <Form teams={teams} setData={this.setData} dummyData={dummyData} />}
+				<img src={require("./../images/trophy.svg")} width="100" alt="" />
+				<h1>World Cup 2018 sweepstake tool</h1>
+				{dataInput && (
+					<section>
+						<p>Picking teams out of a hat is so 20th century! Use this tool to help you run your office World Cup 2018 sweepstake!</p>
+						<h2>How it works</h2>
+						<ul>
+							<li>Sign-up everyone who wants to take part (up to 32 people)</li>
+							<li>Get the money off everyone before continuing!</li>
+							<li>Enter all your sweepstake participants in the form below</li>
+							<li>Some people want two teams? Add their names twice into the form</li>
+							<li>Gather everyone round and start the draw!</li>
+						</ul>
+						<Form teams={teams} setData={this.setData} dummyData={dummyData} />
+					</section>
+				)}
 				{!dataInput && (
 					<section>
 						{!start && <button onClick={this.start}>Start draw</button>}
