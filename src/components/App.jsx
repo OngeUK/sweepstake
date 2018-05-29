@@ -1,15 +1,68 @@
 import {Component, h} from "preact";
+import styled, {css, injectGlobal} from "styled-components";
 import {AssignTeam} from "./AssignTeam";
 import {dummyData} from "../js/dummy-data";
 import {EmailButton} from "./EmailButton";
 import {Form} from "./Form";
-import styled from "styled-components";
+import OpenSansWoff from "./../fonts/open-sans-v15-latin-regular.woff";
+import OpenSansWoff2 from "./../fonts/open-sans-v15-latin-regular.woff2";
+import OpenSansWoff2Bold from "./../fonts/open-sans-v15-latin-700.woff2";
+import OpenSansWoffBold from "./../fonts/open-sans-v15-latin-700.woff";
 import {TeamName} from "./TeamName";
 import {teams} from "./../js/teams";
 const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#shuffle
 
 // Styled components
-const Wrapper = styled.div`
+injectGlobal`
+	body {
+		margin: 0 auto;
+	}
+
+	h1,
+	h2 {
+		font-family: "Open Sans Bold";
+		font-weight: normal;
+	}
+`;
+
+const Main = styled.main`
+	color: #2e2e2e;
+	font-family: "Open Sans";
+
+	@font-face {
+		font-family: "Open Sans";
+		font-style: normal;
+		font-weight: 400;
+		src: url(${OpenSansWoff}) format("woff2"), url(${OpenSansWoff2}) format("woff");
+	}
+
+	@font-face {
+		font-family: "Open Sans Bold";
+		font-style: normal;
+		font-weight: 400;
+		src: url(${OpenSansWoffBold}) format("woff2"), url(${OpenSansWoff2Bold}) format("woff");
+	}
+`;
+
+const Header = styled.header`
+	background: linear-gradient(#0d6cb5, #102b66);
+	color: #fff;
+`;
+
+const PageWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	max-width: 1280px;
+
+	${(props) =>
+		props.header &&
+		css`
+			flex-direction: row;
+		`};
+`;
+
+const TeamWrapper = styled.div`
 	align-items: center;
 	display: flex;
 	font-family: sans-serif;
@@ -41,7 +94,7 @@ export class App extends Component {
 		});
 	}
 
-	setData(teams, people) {
+	setData(teams, people, dummyData = false) {
 		// Set people and team data to use
 		this.setState({
 			dataInput: false,
@@ -49,8 +102,10 @@ export class App extends Component {
 			people: shuffle(people)
 		});
 
-		// Store data in localStorage
-		localStorage.setItem("data", people);
+		if (!dummyData) {
+			// Store data in localStorage (except if it's dummy data)
+			localStorage.setItem("data", people);
+		}
 	}
 
 	nextTeam(currentItem, nextIndex) {
@@ -74,29 +129,35 @@ export class App extends Component {
 			const active = i === this.state.counter;
 
 			output.push(
-				<Wrapper>
+				<TeamWrapper>
 					<TeamName id={i} teams={teams} />
 					{this.state.start && <AssignTeam data={people} id={i} counter={counter} nextTeam={this.nextTeam} assigned={assigned} active={active} />}
-				</Wrapper>
+				</TeamWrapper>
 			);
 		}
 
 		return (
-			<main>
-				<img src={require("./../images/trophy.svg")} width="100" alt="" />
-				<h1>World Cup 2018 sweepstake tool</h1>
+			<Main>
+				<Header>
+					<PageWrapper header>
+						<img src={require("./../images/trophy.svg")} width="100" alt="" />
+						<h1>World Cup 2018 sweepstake tool</h1>
+					</PageWrapper>
+				</Header>
 				{dataInput && (
 					<section>
-						<p>Picking teams out of a hat is so 20th century! Use this tool to help you run your office World Cup 2018 sweepstake!</p>
-						<h2>How it works</h2>
-						<ul>
-							<li>Sign-up everyone who wants to take part (up to 32 people)</li>
-							<li>Get the money off everyone before continuing!</li>
-							<li>Enter all your sweepstake participants in the form below</li>
-							<li>Some people want two teams? Add their names twice into the form</li>
-							<li>Gather everyone round and start the draw!</li>
-						</ul>
-						<Form teams={teams} setData={this.setData} dummyData={dummyData} />
+						<PageWrapper>
+							<p>Picking teams out of a hat is so 20th century. Use this online tool to help you run your office World Cup 2018 sweepstake!</p>
+							<h2>How it works</h2>
+							<ul>
+								<li>Sign-up everyone who wants to take part (up to 32 people)</li>
+								<li>Get the money off everyone before anything else!</li>
+								<li>Enter all your sweepstake participants in the form below</li>
+								<li>Some people want two teams? Add their names twice into the form</li>
+								<li>Gather everyone round and start the draw!</li>
+							</ul>
+							<Form teams={teams} setData={this.setData} dummyData={dummyData} />
+						</PageWrapper>
 					</section>
 				)}
 				{!dataInput && (
@@ -106,7 +167,7 @@ export class App extends Component {
 						{output}
 					</section>
 				)}
-			</main>
+			</Main>
 		);
 	}
 }

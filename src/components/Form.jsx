@@ -107,18 +107,33 @@ export class Form extends Component {
 
 	render() {
 		const {teams, setData, dummyData} = this.props,
-			{peopleCount, error, modal} = this.state;
+			{peopleCount, error, modal} = this.state,
+			previousData = localStorage.getItem("data") !== null ? localStorage.getItem("data").replace(/,/g, "\n") : "";
 
 		return (
 			<section>
+				<h2>Who's in?</h2>
+				<label for="text">
+					<p>
+						Add names here or{" "}
+						<a href="#" onClick={() => setData(teams, dummyData, true)}>
+							skip this step to see an example draw
+						</a>.
+					</p>
+				</label>
 				<form onSubmit={(e) => this.handleSubmit(e, setData)}>
-					<textarea id="text" onInput={(e) => this.displayPeopleCount(e.target.value)}>
-						{localStorage.getItem("data").replace(/,/g, "\n")}
+					<textarea
+						id="text"
+						placeholder="Add the names of everyone who is participating in the sweepstake here (one per line)"
+						onInput={(e) => this.displayPeopleCount(e.target.value)}
+					>
+						{previousData}
 					</textarea>
 					<span>Sweepstake particiants: {peopleCount}</span>
 					<button type="submit">Submit</button>
 					{error !== null && <span>{error}</span>}
 				</form>
+
 				{modal && (
 					<div>
 						<p>There are more teams than there are people in your sweepstake!</p>
@@ -132,7 +147,6 @@ export class Form extends Component {
 						</button>
 					</div>
 				)}
-				<button onClick={() => setData(teams, dummyData)}>Skip this step and show me an example draw</button>
 			</section>
 		);
 	}

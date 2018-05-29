@@ -14,7 +14,7 @@
 	"dependencies": {
 		"preact": "8.2.9",
 		"preact-compat": "3.18.0",
-		"zenscroll": "4.0.2"
+		"zenscroll": "^4.0.2"
 	},
 	"devDependencies": {
 		"autoprefixer": "8.5.0",
@@ -28,12 +28,12 @@
 		"eslint-config-standard-preact": "1.1.6",
 		"eslint-plugin-import": "2.12.0",
 		"eslint-plugin-node": "6.0.1",
-		"eslint-plugin-standard": "3.1.0",
 		"eslint-plugin-promise": "3.7.0",
+		"eslint-plugin-standard": "3.1.0",
 		"lodash": "4.17.10",
 		"parcel-bundler": "1.8.1",
-		"postcss-pxtorem": "4.0.1",
 		"postcss-modules": "1.1.0",
+		"postcss-pxtorem": "4.0.1",
 		"styled-components": "3.2.6",
 		"stylelint": "9.2.1",
 		"stylelint-config-styled-components": "0.1.1",
