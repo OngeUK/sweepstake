@@ -10,6 +10,7 @@ import OpenSansWoff2Bold from "./../fonts/open-sans-v15-latin-700.woff2";
 import OpenSansWoffBold from "./../fonts/open-sans-v15-latin-700.woff";
 import {TeamName} from "./TeamName";
 import {teams} from "./../js/teams";
+const trophyImg = require("./../images/trophy.svg");
 const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#shuffle
 
 // Styled components
@@ -19,9 +20,25 @@ injectGlobal`
 	}
 
 	h1,
-	h2 {
+	h2,
+	a {
 		font-family: "Open Sans Bold";
 		font-weight: normal;
+	}
+
+	h1 {
+		line-height: 1.1;
+		text-shadow: 1px 1px 1px #000;
+	}
+
+	a {
+		color: #0f4583;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			text-decoration: underline;
+		}
 	}
 `;
 
@@ -47,19 +64,45 @@ const Main = styled.main`
 const Header = styled.header`
 	background: linear-gradient(#0d6cb5, #102b66);
 	color: #fff;
+	position: relative;
+	z-index: 1;
+
+	&::after {
+		background: url(${trophyImg}) no-repeat 0 21%;
+		background-size: 16rem;
+		content: "";
+		height: 100%;
+		opacity: 0.4;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 15rem;
+		z-index: -1;
+	}
+`;
+
+const Image = styled.img`
+	height: auto;
+	margin: 0.75rem 1.5rem 0.75rem 0;
+	width: 40px;
 `;
 
 const PageWrapper = styled.div`
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	margin: auto;
 	max-width: 1280px;
+	padding: 0 1rem;
 
+	/* stylelint-disable */
 	${(props) =>
 		props.header &&
 		css`
+			align-items: center;
 			flex-direction: row;
 		`};
+	/* stylelint-enable */
 `;
 
 const TeamWrapper = styled.div`
@@ -140,7 +183,7 @@ export class App extends Component {
 			<Main>
 				<Header>
 					<PageWrapper header>
-						<img src={require("./../images/trophy.svg")} width="100" alt="" />
+						<Image src={trophyImg} alt="" />
 						<h1>World Cup 2018 sweepstake tool</h1>
 					</PageWrapper>
 				</Header>
