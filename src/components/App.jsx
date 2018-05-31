@@ -16,9 +16,9 @@ const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#sh
 // Styled components
 injectGlobal`
 	body {
-		font-range: 480px 1920px; /* viewport widths between which font-size is fluid */
-		font-size: responsive 16px 28px; /* min-size, max-size */
-		margin: 0 auto;
+		font-family: "Open Sans";
+		font-size: calc(0.95em + 0.25 * ((75vw - 32em) / 49.25));
+		margin: 0 auto 1rem;
 	}
 
 	h1,
@@ -31,6 +31,10 @@ injectGlobal`
 	h1 {
 		line-height: 1.1;
 		text-shadow: 1px 1px 1px #000;
+	}
+
+	h2 {
+		margin: 1rem 0 0;
 	}
 
 	a {
@@ -46,7 +50,6 @@ injectGlobal`
 
 const Main = styled.main`
 	color: #2e2e2e;
-	font-family: "Open Sans";
 
 	@font-face {
 		font-family: "Open Sans";
@@ -105,6 +108,16 @@ const PageWrapper = styled.div`
 			flex-direction: row;
 		`};
 	/* stylelint-enable */
+`;
+
+const Intro = styled.p`
+	font-size: 120%;
+	margin-top: 2rem;
+	max-width: 960px;
+`;
+
+const List = styled.ul`
+	padding: 0 0 0 1.25rem;
 `;
 
 const TeamWrapper = styled.div`
@@ -192,15 +205,17 @@ export class App extends Component {
 				{dataInput && (
 					<section>
 						<PageWrapper>
-							<p>Picking teams out of a hat is so 20th century. Use this online tool to help you run your office World Cup 2018 sweepstake!</p>
+							<Intro>
+								Picking teams out of a hat is so 20th century &ndash; use this online tool to help you run your office World Cup 2018
+								sweepstake!
+							</Intro>
 							<h2>How it works</h2>
-							<ul>
-								<li>Sign-up everyone who wants to take part (up to 32 people)</li>
-								<li>Get the money off everyone before anything else!</li>
+							<List>
+								<li>Sign-up up to 32 people who want to take part (and get payment off them!)</li>
 								<li>Enter all your sweepstake participants in the form below</li>
 								<li>Some people want two teams? Add their names twice into the form</li>
 								<li>Gather everyone round and start the draw!</li>
-							</ul>
+							</List>
 							<Form teams={teams} setData={this.setData} dummyData={dummyData} />
 						</PageWrapper>
 					</section>

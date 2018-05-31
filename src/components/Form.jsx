@@ -1,23 +1,47 @@
 import {Component, h} from "preact";
+import styled from "styled-components";
 import {teams} from "./../js/teams";
-//import styled from "styled-components";
 
 // Styled components
-// const Flag = styled.img.attrs({
-// 	src: (props) => props.country
-// })`
-// 	height: 48px;
-// 	width: 64px;
-// `;
+const Textarea = styled.textarea`
+	border: 3px solid #0f4583;
+	box-sizing: border-box;
+	color: #2e2e2e;
+	font-family: "Open Sans";
+	font-size: calc(1.2em + 0.25 * ((25vw - 26em) / 49.25));
+	max-width: 768px;
+	min-height: 15rem;
+	padding: 0.5rem 0.75rem;
+	width: 100%;
+`;
 
-// const Wrapper = styled.div`
-// 	align-items: center;
-// 	display: flex;
-// `;
+const Counter = styled.span`
+	display: block;
+	font-size: 90%;
+	margin: 1rem 0;
+`;
 
-// const Name = styled.div`
-// 	margin: 0 1em;
-// `;
+const Button = styled.button`
+	background: #0f4583;
+	border: 0;
+	color: #fff;
+	cursor: pointer;
+	font-family: "Open Sans Bold";
+	font-size: calc(0.9em + 0.25 * ((75vw - 32em) / 49.25));
+	margin-right: 1rem;
+	padding: 0.75rem 1rem;
+
+	&:hover,
+	&:focus {
+		background: #577da8;
+	}
+`;
+
+const Error = styled.span`
+	color: #f00;
+	display: inline-block;
+	margin: 0.5rem 0;
+`;
 
 export class Form extends Component {
 	componentWillMount() {
@@ -112,39 +136,40 @@ export class Form extends Component {
 
 		return (
 			<section>
-				<h2>Who's in?</h2>
+				<h2>So, who's in?</h2>
 				<label for="text">
 					<p>
-						Add names here or{" "}
+						Add the names here or{" "}
 						<a href="#" onClick={() => setData(teams, dummyData, true)}>
 							skip this step to see an example draw
 						</a>.
 					</p>
 				</label>
 				<form onSubmit={(e) => this.handleSubmit(e, setData)}>
-					<textarea
+					<Textarea
 						id="text"
 						placeholder="Add the names of everyone who is participating in the sweepstake here (one per line)"
 						onInput={(e) => this.displayPeopleCount(e.target.value)}
 					>
 						{previousData}
-					</textarea>
-					<span>Sweepstake particiants: {peopleCount}</span>
-					<button type="submit">Submit</button>
-					{error !== null && <span>{error}</span>}
+					</Textarea>
+					<Counter>Sweepstake particiants: {peopleCount}</Counter>
+					<Button type="submit">Let's go</Button>
+					{error !== null && <Error>{error}</Error>}
 				</form>
 
-				{modal && (
+				{modal &&
+					error === null && (
 					<div>
 						<p>There are more teams than there are people in your sweepstake!</p>
-						<p>That's fine - we can just remove the lowest ranked {32 - peopleCount} teams if you'd like?</p>
+						<p>That's fine &ndash; we can just remove the lowest ranked {32 - peopleCount} teams if you'd like?</p>
 						<p>How would you like to proceed?</p>
-						<button onClick={(e) => this.modalContinue(e, setData)} type="button">
-							Please remove {32 - peopleCount} teams
-						</button>
-						<button onClick={(e) => this.modalClose(e)} type="button">
-							I'll just add some more people
-						</button>
+						<Button onClick={(e) => this.modalContinue(e, setData)} type="Button">
+								Please remove {32 - peopleCount} teams
+						</Button>
+						<Button onClick={(e) => this.modalClose(e)} type="Button">
+								I'll add some more people
+						</Button>
 					</div>
 				)}
 			</section>
