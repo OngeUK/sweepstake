@@ -1,7 +1,7 @@
 import {Component, h} from "preact";
 import styled, {css, injectGlobal} from "styled-components";
 import {AssignTeam} from "./AssignTeam";
-import {dummyData} from "../js/dummy-data";
+import {dummyData} from "./../js/dummy-data";
 import {EmailButton} from "./EmailButton";
 import {Form} from "./Form";
 import OpenSansWoff from "./../fonts/open-sans-v15-latin-regular.woff";
@@ -16,6 +16,8 @@ const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#sh
 // Styled components
 injectGlobal`
 	body {
+		font-range: 480px 1920px; /* viewport widths between which font-size is fluid */
+		font-size: responsive 16px 28px; /* min-size, max-size */
 		margin: 0 auto;
 	}
 
@@ -137,7 +139,7 @@ export class App extends Component {
 		});
 	}
 
-	setData(teams, people, dummyData = false) {
+	setData(teams, people, usingDummyData = false) {
 		// Set people and team data to use
 		this.setState({
 			dataInput: false,
@@ -145,7 +147,7 @@ export class App extends Component {
 			people: shuffle(people)
 		});
 
-		if (!dummyData) {
+		if (!usingDummyData) {
 			// Store data in localStorage (except if it's dummy data)
 			localStorage.setItem("data", people);
 		}
