@@ -1,5 +1,5 @@
 import {Component, h} from "preact";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {teams} from "./../js/teams";
 
 // Styled components
@@ -7,7 +7,7 @@ const Textarea = styled.textarea`
 	border: 3px solid #0f4583;
 	box-sizing: border-box;
 	color: #2e2e2e;
-	font-family: "Open Sans";
+	font-family: "Open Sans", "Arial";
 	font-size: calc(1.2em + 0.25 * ((25vw - 26em) / 49.25));
 	max-width: 768px;
 	min-height: 15rem;
@@ -21,12 +21,12 @@ const Counter = styled.span`
 	margin: 1rem 0;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
 	background: #0f4583;
 	border: 0;
 	color: #fff;
 	cursor: pointer;
-	font-family: "Open Sans Bold";
+	font-family: "Open Sans Bold", "Arial Bold", "Arial";
 	font-size: calc(0.9em + 0.25 * ((75vw - 32em) / 49.25));
 	margin-right: 1rem;
 	padding: 0.75rem 1rem;
@@ -35,12 +35,49 @@ const Button = styled.button`
 	&:focus {
 		background: #577da8;
 	}
+
+	&:disabled {
+		background: #0f4583;
+		opacity: 0.2;
+	}
+
+	/* stylelint-disable */
+	${(props) =>
+		props.modal &&
+		css`
+			margin-top: 0.5rem;
+		`};
+	/* stylelint-enable */
 `;
 
 const Error = styled.span`
 	color: #f00;
 	display: inline-block;
 	margin: 0.5rem 0;
+`;
+
+const ModalWrapper = styled.div`
+	align-items: center;
+	background: rgba(255, 255, 255, 0.9);
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+`;
+
+const Modal = styled.div`
+	background: #fff;
+	border: 3px solid #0f4583;
+	margin: 1rem;
+	padding: 2rem;
+
+	& p:first-child {
+		margin-top: 0;
+	}
 `;
 
 export class Form extends Component {
@@ -153,24 +190,26 @@ export class Form extends Component {
 					>
 						{previousData}
 					</Textarea>
-					<Counter>Sweepstake particiants: {peopleCount}</Counter>
+					<Counter>Sweepstake participants: {peopleCount}</Counter>
 					<Button type="submit">Let's go</Button>
 					{error !== null && <Error>{error}</Error>}
 				</form>
 
 				{modal &&
 					error === null && (
-					<div>
-						<p>There are more teams than there are people in your sweepstake!</p>
-						<p>That's fine &ndash; we can just remove the lowest ranked {32 - peopleCount} teams if you'd like?</p>
-						<p>How would you like to proceed?</p>
-						<Button onClick={(e) => this.modalContinue(e, setData)} type="Button">
-								Please remove {32 - peopleCount} teams
-						</Button>
-						<Button onClick={(e) => this.modalClose(e)} type="Button">
-								I'll add some more people
-						</Button>
-					</div>
+					<ModalWrapper>
+						<Modal>
+							<p>There are more teams than there are people in your sweepstake!</p>
+							<p>That's fine &ndash; we can just remove the lowest ranked {32 - peopleCount} teams if you'd like?</p>
+							<p>How would you like to proceed?</p>
+							<Button modal onClick={(e) => this.modalContinue(e, setData)} type="Button">
+									Please remove {32 - peopleCount} teams
+							</Button>
+							<Button modal onClick={(e) => this.modalClose(e)} type="Button">
+									I'll add some more people
+							</Button>
+						</Modal>
+					</ModalWrapper>
 				)}
 			</section>
 		);

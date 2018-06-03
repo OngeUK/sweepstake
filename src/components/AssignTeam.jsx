@@ -4,9 +4,12 @@ const random = require("lodash/random"); // https://lodash.com/docs/4.17.5#rando
 const zenscroll = require("zenscroll");
 
 // Styled components
-const Title = styled.span`
-	/* font-family: sans-serif;
-	text-align: center; */
+const Name = styled.div`
+	align-items: flex-end;
+	display: flex;
+	flex: 1 0 auto;
+	font-family: "Open Sans Bold", "Arial Bold", "Arial";
+	font-size: 140%;
 `;
 
 export class AssignTeam extends Component {
@@ -14,7 +17,7 @@ export class AssignTeam extends Component {
 		// Set initial state
 		this.state = {
 			currentCount: 0,
-			data: this.props.data
+			people: this.props.people
 		};
 	}
 
@@ -25,7 +28,7 @@ export class AssignTeam extends Component {
 	componentWillReceiveProps() {
 		setTimeout(() => {
 			this.startTimer();
-		}, 500);
+		}, 250);
 	}
 
 	startTimer() {
@@ -52,7 +55,7 @@ export class AssignTeam extends Component {
 		});
 
 		// Restart cycle when we reach the end
-		if (this.state.currentCount === this.state.data.length) {
+		if (this.state.currentCount === this.state.people.length) {
 			this.setState({currentCount: 0});
 		}
 	}
@@ -63,12 +66,12 @@ export class AssignTeam extends Component {
 
 		if (active) {
 			// Show names cycling
-			output = this.state.data[this.state.currentCount];
+			output = this.state.people[this.state.currentCount];
 		} else if (typeof assigned[id] !== "undefined") {
 			// Name already assigned
 			output = assigned[id];
 		}
 
-		return <Title>{output}</Title>;
+		return <Name>{output}</Name>;
 	}
 }

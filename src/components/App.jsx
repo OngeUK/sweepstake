@@ -1,9 +1,8 @@
+import {Button, Form} from "./Form";
 import {Component, h} from "preact";
 import styled, {css, injectGlobal} from "styled-components";
-import {AssignTeam} from "./AssignTeam";
 import {dummyData} from "./../js/dummy-data";
 import {EmailButton} from "./EmailButton";
-import {Form} from "./Form";
 import OpenSansWoff from "./../fonts/open-sans-v15-latin-regular.woff";
 import OpenSansWoff2 from "./../fonts/open-sans-v15-latin-regular.woff2";
 import OpenSansWoff2Bold from "./../fonts/open-sans-v15-latin-700.woff2";
@@ -12,19 +11,34 @@ import {TeamName} from "./TeamName";
 import {teams} from "./../js/teams";
 const trophyImg = require("./../images/trophy.svg");
 const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#shuffle
+const zenscroll = require("zenscroll");
+
+// TO DO
+// - Browser testing
+// - Build
+// - og tags, banner, icon
 
 // Styled components
 injectGlobal`
+	html {
+		display: flex;
+		height: 100%;
+		width: 100%;
+	}
+
 	body {
-		font-family: "Open Sans";
+		font-family: "Open Sans", "Arial";
 		font-size: calc(0.95em + 0.25 * ((75vw - 32em) / 49.25));
-		margin: 0 auto 1rem;
+		height: 100%;
+		margin: 0 auto;
+		min-width: 320px;
+		width: 100%;
 	}
 
 	h1,
 	h2,
 	a {
-		font-family: "Open Sans Bold";
+		font-family: "Open Sans Bold", "Arial Bold", "Arial";
 		font-weight: normal;
 	}
 
@@ -46,12 +60,22 @@ injectGlobal`
 			text-decoration: underline;
 		}
 	}
+
+	a,
+	button {
+		outline: none;
+	}
 `;
 
 const Main = styled.main`
+	box-sizing: border-box;
 	color: #2e2e2e;
+	display: flex;
+	flex-direction: column;
+	padding: 0 0 1rem;
 
 	@font-face {
+		font-display: swap;
 		font-family: "Open Sans";
 		font-style: normal;
 		font-weight: 400;
@@ -59,6 +83,7 @@ const Main = styled.main`
 	}
 
 	@font-face {
+		font-display: swap;
 		font-family: "Open Sans Bold";
 		font-style: normal;
 		font-weight: 400;
@@ -98,7 +123,7 @@ const PageWrapper = styled.div`
 	flex-direction: column;
 	margin: auto;
 	max-width: 1280px;
-	padding: 0 1rem;
+	padding: 0 1rem 1rem;
 
 	/* stylelint-disable */
 	${(props) =>
@@ -120,10 +145,37 @@ const List = styled.ul`
 	padding: 0 0 0 1.25rem;
 `;
 
-const TeamWrapper = styled.div`
-	align-items: center;
+const DrawWrapper = styled.section`
 	display: flex;
-	font-family: sans-serif;
+	flex: 1 0 auto;
+	flex-direction: column;
+	margin: auto;
+	max-width: 1920px;
+`;
+
+const StartButtonWrapper = styled.div`
+	padding: 2rem 0;
+	text-align: center;
+`;
+
+const TeamsWrapper = styled.div`
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	width: 100%;
+`;
+
+const TeamWrapper = styled.div`
+	border: 3px solid #2e2e2e;
+	margin: 0.5em;
+`;
+
+const Teams = styled.div`
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-evenly;
 `;
 
 export class App extends Component {
@@ -150,6 +202,8 @@ export class App extends Component {
 		this.setState({
 			start: true
 		});
+
+		zenscroll.to(document.getElementById("t0"), 350);
 	}
 
 	setData(teams, people, usingDummyData = false) {
@@ -181,6 +235,7 @@ export class App extends Component {
 
 	render() {
 		const {people, counter, assigned, teams, dataInput, start} = this.state;
+
 		let output = [];
 
 		for (let i = 0; i < teams.length; i++) {
@@ -188,8 +243,16 @@ export class App extends Component {
 
 			output.push(
 				<TeamWrapper>
-					<TeamName id={i} teams={teams} />
-					{this.state.start && <AssignTeam data={people} id={i} counter={counter} nextTeam={this.nextTeam} assigned={assigned} active={active} />}
+					<TeamName
+						id={i}
+						teams={teams}
+						start={this.state.start}
+						people={people}
+						counter={counter}
+						nextTeam={this.nextTeam}
+						assigned={assigned}
+						active={active}
+					/>
 				</TeamWrapper>
 			);
 		}
@@ -221,11 +284,17 @@ export class App extends Component {
 					</section>
 				)}
 				{!dataInput && (
-					<section>
-						{!start && <button onClick={this.start}>Start draw</button>}
+					<DrawWrapper>
+						<StartButtonWrapper>
+							<Button onClick={this.start} disabled={start}>
+								Start draw
+							</Button>
+						</StartButtonWrapper>
+						<TeamsWrapper>
+							<Teams>{output}</Teams>
+						</TeamsWrapper>
 						<EmailButton people={assigned} teams={teams} />
-						{output}
-					</section>
+					</DrawWrapper>
 				)}
 			</Main>
 		);
