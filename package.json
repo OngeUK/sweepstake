@@ -9,7 +9,8 @@
 	},
 	"scripts": {
 		"serve": "parcel ./src/index.html --open",
-		"lint:css": "stylelint ./src/**/*.js"
+		"lint:css": "stylelint ./src/**/*.jsx",
+		"build": "rimraf ./dist && parcel build ./src/index.html"
 	},
 	"dependencies": {
 		"preact": "8.2.9",

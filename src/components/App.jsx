@@ -14,10 +14,10 @@ const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#sh
 const zenscroll = require("zenscroll");
 
 // TO DO
-// - SVGOMG
-// - Preload images or add ratio to stop content jumping around
-// - Build
+// - Images pre-loaded by adding content to markup - has this caused page to flicker?
+//   - If so, add images into header with position: absolute; opacity: 0;
 // - og tags, banner, icon
+// - readme
 
 // Styled components
 injectGlobal`
@@ -114,7 +114,7 @@ const Header = styled.header`
 
 const Image = styled.img`
 	height: auto;
-	margin: 0.75rem 1.5rem 0.75rem 0;
+	margin: 0 1.5rem 0 0;
 	width: 40px;
 `;
 
@@ -124,7 +124,7 @@ const PageWrapper = styled.div`
 	flex-direction: column;
 	margin: auto;
 	max-width: 1280px;
-	padding: 0 1rem 1rem;
+	padding: 1rem;
 
 	/* stylelint-disable */
 	${(props) =>
@@ -152,6 +152,16 @@ const DrawWrapper = styled.section`
 	flex-direction: column;
 	margin: auto;
 	max-width: 1920px;
+
+	/* stylelint-disable */
+	${(props) =>
+		props.hidden === true &&
+		css`
+			opacity: 0;
+			position: absolute;
+			z-index: -1;
+		`};
+	/* stylelint-enable */
 `;
 
 const StartButtonWrapper = styled.div`
@@ -237,7 +247,6 @@ export class App extends Component {
 
 	render() {
 		const {people, counter, assigned, teams, dataInput, start} = this.state;
-
 		let output = [];
 
 		for (let i = 0; i < teams.length; i++) {
@@ -285,19 +294,17 @@ export class App extends Component {
 						</PageWrapper>
 					</section>
 				)}
-				{!dataInput && (
-					<DrawWrapper>
-						<StartButtonWrapper>
-							<Button onClick={this.start} disabled={start}>
-								Start draw
-							</Button>
-						</StartButtonWrapper>
-						<TeamsWrapper>
-							<Teams>{output}</Teams>
-						</TeamsWrapper>
-						<EmailButton people={assigned} teams={teams} />
-					</DrawWrapper>
-				)}
+				<DrawWrapper hidden={dataInput}>
+					<StartButtonWrapper>
+						<Button onClick={this.start} disabled={start}>
+							Start draw
+						</Button>
+					</StartButtonWrapper>
+					<TeamsWrapper>
+						<Teams>{output}</Teams>
+					</TeamsWrapper>
+					<EmailButton people={assigned} teams={teams} />
+				</DrawWrapper>
 			</Main>
 		);
 	}
