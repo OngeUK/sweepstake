@@ -14,7 +14,8 @@ const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#sh
 const zenscroll = require("zenscroll");
 
 // TO DO
-// - Browser testing
+// - SVGOMG
+// - Preload images or add ratio to stop content jumping around
 // - Build
 // - og tags, banner, icon
 
@@ -79,7 +80,7 @@ const Main = styled.main`
 		font-family: "Open Sans";
 		font-style: normal;
 		font-weight: 400;
-		src: url(${OpenSansWoff}) format("woff2"), url(${OpenSansWoff2}) format("woff");
+		src: url(${OpenSansWoff2}) format("woff2"), url(${OpenSansWoff}) format("woff");
 	}
 
 	@font-face {
@@ -87,7 +88,7 @@ const Main = styled.main`
 		font-family: "Open Sans Bold";
 		font-style: normal;
 		font-weight: 400;
-		src: url(${OpenSansWoffBold}) format("woff2"), url(${OpenSansWoff2Bold}) format("woff");
+		src: url(${OpenSansWoff2Bold}) format("woff2"), url(${OpenSansWoffBold}) format("woff");
 	}
 `;
 
@@ -170,12 +171,13 @@ const TeamsWrapper = styled.div`
 const TeamWrapper = styled.div`
 	border: 3px solid #2e2e2e;
 	margin: 0.5em;
+	max-height: 5.5em;
 `;
 
 const Teams = styled.div`
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-evenly;
+	justify-content: space-around;
 `;
 
 export class App extends Component {

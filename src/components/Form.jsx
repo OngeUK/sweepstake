@@ -86,7 +86,8 @@ export class Form extends Component {
 		this.setState({
 			peopleCount: 0,
 			error: null,
-			modal: false
+			modal: false,
+			formData: localStorage.getItem("data") !== null ? localStorage.getItem("data").replace(/,/g, "\n") : ""
 		});
 	}
 
@@ -140,7 +141,8 @@ export class Form extends Component {
 	displayPeopleCount(formData) {
 		// Show counter
 		this.setState({
-			peopleCount: this.getPeopleList(formData).length
+			peopleCount: this.getPeopleList(formData).length,
+			formData: formData
 		});
 	}
 
@@ -168,8 +170,7 @@ export class Form extends Component {
 
 	render() {
 		const {teams, setData, dummyData} = this.props,
-			{peopleCount, error, modal} = this.state,
-			previousData = localStorage.getItem("data") !== null ? localStorage.getItem("data").replace(/,/g, "\n") : "";
+			{peopleCount, error, modal, formData} = this.state;
 
 		return (
 			<section>
@@ -188,7 +189,7 @@ export class Form extends Component {
 						placeholder="Add the names of everyone who is participating in the sweepstake here (one per line)"
 						onInput={(e) => this.displayPeopleCount(e.target.value)}
 					>
-						{previousData}
+						{formData}
 					</Textarea>
 					<Counter>Sweepstake participants: {peopleCount}</Counter>
 					<Button type="submit">Let's go</Button>

@@ -20,7 +20,7 @@ const Flag = styled.img.attrs({
 const Wrapper = styled.div`
 	align-items: center;
 	display: flex;
-	max-width: 18em;
+	max-width: 17em;
 	padding: 0.75em;
 	width: 100%;
 `;
