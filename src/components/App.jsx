@@ -13,15 +13,6 @@ const trophyImg = require("./../images/trophy.svg");
 const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#shuffle
 const zenscroll = require("zenscroll");
 
-// TO DO
-// - Images pre-loaded by adding content to markup - has this caused page to flicker?
-//   - If so, add images into header with position: absolute; opacity: 0;
-// - Browser testing
-//   - Horizontal scrollbars in IE11 & Edge
-//   - Header trophy image positioning in IE11
-// - og tags, banner, icon
-// - readme
-
 // Styled components
 injectGlobal`
 	html {
@@ -290,7 +281,7 @@ export class App extends Component {
 							</Intro>
 							<h2>How it works</h2>
 							<List>
-								<li>Sign-up up to 32 people who want to take part (and get payment off them!)</li>
+								<li>Sign-up a maximum of 32 people who want to take part (and get payment off them!)</li>
 								<li>Enter all your sweepstake participants in the form below</li>
 								<li>Some people want two teams? Add their names twice into the form</li>
 								<li>Gather everyone round and start the draw!</li>
