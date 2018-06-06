@@ -16,6 +16,9 @@ const zenscroll = require("zenscroll");
 // TO DO
 // - Images pre-loaded by adding content to markup - has this caused page to flicker?
 //   - If so, add images into header with position: absolute; opacity: 0;
+// - Browser testing
+//   - Horizontal scrollbars in IE11 & Edge
+//   - Header trophy image positioning in IE11
 // - og tags, banner, icon
 // - readme
 
@@ -33,6 +36,7 @@ injectGlobal`
 		height: 100%;
 		margin: 0 auto;
 		min-width: 320px;
+		overflow-x: hidden; /* IE11 fix */
 		width: 100%;
 	}
 
@@ -157,6 +161,7 @@ const DrawWrapper = styled.section`
 	${(props) =>
 		props.hidden === true &&
 		css`
+			margin-top: -999rem;
 			opacity: 0;
 			position: absolute;
 			z-index: -1;
