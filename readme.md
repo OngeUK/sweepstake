@@ -1,6 +1,6 @@
 # World Cup 2018 sweepstake tool
 
-![alt text](https://sweepstake.onge.uk/assets/sweepstake.gif "Screenshot of World Cup 2018 sweepstake tool")
+![alt text](https://www.onge.uk/images/sweepstake.gif "Screenshot of World Cup 2018 sweepstake tool")
 
 ## **[View in your browser](https://sweepstake.onge.uk/)**
 
