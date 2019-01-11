@@ -5,7 +5,7 @@
 	"author": {
 		"name": "Andrew Burton",
 		"email": "onge.uk@gmail.com",
-		"url": "https://sweepstake.onge.co.uk/"
+		"url": "https://sweepstake.onge.uk/"
 	},
 	"scripts": {
 		"serve": "parcel ./src/index.html --open",
