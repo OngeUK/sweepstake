@@ -12,7 +12,7 @@ const FlagWrapper = styled.div`
 const Flag = styled.img.attrs({
 	src: (props) => props.country
 })`
-	border: 2px solid #2e2e2e;
+	border: 2px solid var(--dark-colour);
 	height: auto;
 	width: 100%;
 `;

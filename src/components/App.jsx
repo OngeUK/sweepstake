@@ -9,12 +9,18 @@ import OpenSansWoff2Bold from "./../fonts/open-sans-v15-latin-700.woff2";
 import OpenSansWoffBold from "./../fonts/open-sans-v15-latin-700.woff";
 import {TeamName} from "./TeamName";
 import {teams} from "./../js/teams";
-const trophyImg = require("./../images/trophy.svg");
+const trophyImg = require("./../images/euro2020.svg");
 const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#shuffle
 const zenscroll = require("zenscroll");
 
 // Styled components
 injectGlobal`
+	:root {
+		--primary-colour: #0084a4;
+		--secondary-colour: #009fe3;
+		--dark-colour: #2e2e2e;
+	}
+
 	html {
 		display: flex;
 		height: 100%;
@@ -48,7 +54,7 @@ injectGlobal`
 	}
 
 	a {
-		color: #0f4583;
+		color: var(--primary-colour);
 		text-decoration: none;
 
 		&:hover,
@@ -65,7 +71,7 @@ injectGlobal`
 
 const Main = styled.main`
 	box-sizing: border-box;
-	color: #2e2e2e;
+	color: var(--dark-colour);
 	display: flex;
 	flex-direction: column;
 	padding: 0 0 1rem;
@@ -88,30 +94,31 @@ const Main = styled.main`
 `;
 
 const Header = styled.header`
-	background: linear-gradient(#0d6cb5, #102b66);
+	background: linear-gradient(var(--secondary-colour), var(--primary-colour));
 	color: #fff;
 	position: relative;
 	z-index: 1;
+	overflow: hidden;
 
 	&::after {
 		background: url(${trophyImg}) no-repeat 0 21%;
 		background-size: 16rem;
 		content: "";
-		height: 100%;
+		height: 250%;
 		opacity: 0.4;
 		position: absolute;
 		right: 0;
-		top: 0;
+		top: -3rem;
 		width: 15rem;
 		z-index: -1;
 	}
 `;
 
-const Image = styled.img`
-	height: auto;
-	margin: 0 1.5rem 0 0;
-	width: 40px;
-`;
+// const Image = styled.img`
+// 	height: auto;
+// 	margin: -20px 1.5rem -30px 0;
+// 	width: 100px;
+// `;
 
 const PageWrapper = styled.div`
 	box-sizing: border-box;
@@ -175,7 +182,7 @@ const TeamsWrapper = styled.div`
 `;
 
 const TeamWrapper = styled.div`
-	border: 3px solid #2e2e2e;
+	border: 3px solid var(--dark-colour);
 	margin: 0.5em;
 	max-height: 5.5em;
 `;
@@ -185,6 +192,8 @@ const Teams = styled.div`
 	flex-flow: row wrap;
 	justify-content: space-around;
 `;
+
+export const numberOfCountries = 24;
 
 export class App extends Component {
 	constructor() {
@@ -268,23 +277,23 @@ export class App extends Component {
 			<Main>
 				<Header>
 					<PageWrapper header>
-						<Image src={trophyImg} alt="" />
-						<h1>World Cup 2018 sweepstake tool</h1>
+						{/* <Image src={trophyImg} alt="" /> */}
+						<h1>Euro 2020 sweepstake tool</h1>
 					</PageWrapper>
 				</Header>
 				{dataInput && (
 					<section>
 						<PageWrapper>
 							<Intro>
-								Picking teams out of a hat is so 20th century &ndash; use this online tool to help you run your office World Cup 2018
+								Picking teams out of a hat is not Covid safe 😛 &ndash; use this online tool instead to help you run your office Euro 2020
 								sweepstake!
 							</Intro>
 							<h2>How it works</h2>
 							<List>
-								<li>Sign-up a maximum of 32 people who want to take part (and get payment off them!)</li>
+								<li>Sign-up a maximum of {numberOfCountries} people who want to take part (and get payment off them!)</li>
 								<li>Enter all your sweepstake participants in the form below</li>
 								<li>Some people want two teams? Add their names twice into the form</li>
-								<li>Gather everyone round and start the draw!</li>
+								<li>Gather everyone round (via Zoom?) and start the draw!</li>
 							</List>
 							<Form teams={teams} setData={this.setData} dummyData={dummyData} />
 						</PageWrapper>

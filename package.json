@@ -1,6 +1,6 @@
 {
-	"name": "world-cup-sweepstake",
-	"version": "1.0.0",
+	"name": "sweepstake",
+	"version": "2.0.0",
 	"main": "index.js",
 	"author": {
 		"name": "Andrew Burton",

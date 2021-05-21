@@ -1,10 +1,11 @@
 import {Component, h} from "preact";
 import styled, {css} from "styled-components";
+import {numberOfCountries} from "./App";
 import {teams} from "./../js/teams";
 
 // Styled components
 const Textarea = styled.textarea`
-	border: 3px solid #0f4583;
+	border: 3px solid var(--primary-colour);
 	box-sizing: border-box;
 	color: #2e2e2e;
 	font-family: "Open Sans", "Arial";
@@ -22,7 +23,7 @@ const Counter = styled.span`
 `;
 
 export const Button = styled.button`
-	background: #0f4583;
+	background: var(--primary-colour);
 	border: 0;
 	color: #fff;
 	cursor: pointer;
@@ -33,11 +34,11 @@ export const Button = styled.button`
 
 	&:hover,
 	&:focus {
-		background: #577da8;
+		background: var(--secondary-colour);
 	}
 
 	&:disabled {
-		background: #0f4583;
+		background: var(--primary-colour);
 		opacity: 0.2;
 	}
 
@@ -71,7 +72,7 @@ const ModalWrapper = styled.div`
 
 const Modal = styled.div`
 	background: #fff;
-	border: 3px solid #0f4583;
+	border: 3px solid var(--primary-colour);
 	margin: 1rem;
 	padding: 2rem;
 
@@ -101,17 +102,19 @@ export class Form extends Component {
 	handleSubmit(e, setData) {
 		e.preventDefault();
 
+		const numberOfCountries = 24;
+
 		const {peopleCount} = this.state,
 			peopleList = this.getPeopleList(e.target[0].value);
 
-		// Check number of people added is between 8 and 32, show error if not
+		// Check number of people added is between 8 and numberOfCountries, show error if not
 		if (peopleCount < 8) {
 			this.setState({
 				error: "Please enter the names of at least 8 people"
 			});
-		} else if (peopleCount > 32) {
+		} else if (peopleCount > numberOfCountries) {
 			this.setState({
-				error: "Too many people entered! A maximum of 32 is allowed"
+				error: `Too many people entered! A maximum of ${numberOfCountries} is allowed`
 			});
 		} else {
 			this.setState({
@@ -119,7 +122,7 @@ export class Form extends Component {
 			});
 
 			// We don't have enough people for every team
-			if (peopleCount < 32) {
+			if (peopleCount < numberOfCountries) {
 				this.setState({
 					modal: true
 				});
@@ -172,6 +175,8 @@ export class Form extends Component {
 		const {teams, setData, dummyData} = this.props,
 			{peopleCount, error, modal, formData} = this.state;
 
+		console.log(numberOfCountries);
+
 		return (
 			<section>
 				<h2>So, who's in?</h2>
@@ -201,10 +206,10 @@ export class Form extends Component {
 					<ModalWrapper>
 						<Modal>
 							<p>There are more teams than there are people in your sweepstake!</p>
-							<p>That's fine &ndash; we can just remove the lowest ranked {32 - peopleCount} teams if you'd like?</p>
+							<p>That's fine &ndash; we can just remove the lowest ranked {numberOfCountries - peopleCount} teams if you'd like?</p>
 							<p>How would you like to proceed?</p>
 							<Button modal onClick={(e) => this.modalContinue(e, setData)} type="Button">
-									Please remove {32 - peopleCount} teams
+									Please remove {numberOfCountries - peopleCount} teams
 							</Button>
 							<Button modal onClick={(e) => this.modalClose(e)} type="Button">
 									I'll add some more people
