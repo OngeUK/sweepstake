@@ -31,7 +31,7 @@
 		"eslint-plugin-node": "6.0.1",
 		"eslint-plugin-promise": "3.7.0",
 		"eslint-plugin-standard": "3.1.0",
-		"lodash": "4.17.10",
+		"lodash": "4.17.21",
 		"parcel-bundler": "1.10.3",
 		"styled-components": "3.2.6",
 		"stylelint": "9.2.1",
