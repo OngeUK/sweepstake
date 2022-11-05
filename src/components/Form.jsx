@@ -43,7 +43,7 @@ export const Button = styled.button`
 	}
 
 	/* stylelint-disable */
-	${(props) =>
+		${(props) =>
 		props.modal &&
 		css`
 			margin-top: 0.5rem;
@@ -101,8 +101,6 @@ export class Form extends Component {
 
 	handleSubmit(e, setData) {
 		e.preventDefault();
-
-		const numberOfCountries = 24;
 
 		const {peopleCount} = this.state,
 			peopleList = this.getPeopleList(e.target[0].value);
@@ -174,8 +172,6 @@ export class Form extends Component {
 	render() {
 		const {teams, setData, dummyData} = this.props,
 			{peopleCount, error, modal, formData} = this.state;
-
-		console.log(numberOfCountries);
 
 		return (
 			<section>

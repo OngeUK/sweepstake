@@ -9,16 +9,16 @@ import OpenSansWoff2Bold from "./../fonts/open-sans-v15-latin-700.woff2";
 import OpenSansWoffBold from "./../fonts/open-sans-v15-latin-700.woff";
 import {TeamName} from "./TeamName";
 import {teams} from "./../js/teams";
-const trophyImg = require("./../images/euro2020.svg");
+const trophyImg = require("./../images/trophy.svg");
 const shuffle = require("lodash/shuffle"); // https://lodash.com/docs/4.17.10#shuffle
 const zenscroll = require("zenscroll");
 
 // Styled components
 injectGlobal`
 	:root {
-		--primary-colour: #0084a4;
-		--secondary-colour: #009fe3;
-		--dark-colour: #2e2e2e;
+		--primary-colour: #9a0d35;
+		--secondary-colour: #cb0b44;
+		--dark-colour: #020f2a;
 	}
 
 	html {
@@ -94,7 +94,7 @@ const Main = styled.main`
 `;
 
 const Header = styled.header`
-	background: linear-gradient(var(--secondary-colour), var(--primary-colour));
+	background: var(--primary-colour);
 	color: #fff;
 	position: relative;
 	z-index: 1;
@@ -104,21 +104,21 @@ const Header = styled.header`
 		background: url(${trophyImg}) no-repeat 0 21%;
 		background-size: 16rem;
 		content: "";
-		height: 250%;
+		height: 100%;
 		opacity: 0.4;
 		position: absolute;
 		right: 0;
-		top: -3rem;
+		top: 0;
 		width: 15rem;
 		z-index: -1;
 	}
 `;
 
-// const Image = styled.img`
-// 	height: auto;
-// 	margin: -20px 1.5rem -30px 0;
-// 	width: 100px;
-// `;
+const Image = styled.img`
+	height: auto;
+	margin: 0 1.5rem 0 0;
+	width: 40px;
+`;
 
 const PageWrapper = styled.div`
 	box-sizing: border-box;
@@ -193,7 +193,7 @@ const Teams = styled.div`
 	justify-content: space-around;
 `;
 
-export const numberOfCountries = 24;
+export const numberOfCountries = 32;
 
 export class App extends Component {
 	constructor() {
@@ -277,15 +277,15 @@ export class App extends Component {
 			<Main>
 				<Header>
 					<PageWrapper header>
-						{/* <Image src={trophyImg} alt="" /> */}
-						<h1>Euro 2020 sweepstake tool</h1>
+						<Image src={trophyImg} alt="" />
+						<h1>World Cup 2022 sweepstake tool</h1>
 					</PageWrapper>
 				</Header>
 				{dataInput && (
 					<section>
 						<PageWrapper>
 							<Intro>
-								Picking teams out of a hat is not Covid safe 😛 &ndash; use this online tool instead to help you run your office Euro 2020
+								Picking teams out of a hat is so 20th century &ndash; use this online tool to help you run your office World Cup 2022
 								sweepstake!
 							</Intro>
 							<h2>How it works</h2>

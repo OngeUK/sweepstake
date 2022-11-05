@@ -1,4 +1,5 @@
 export const dummyData = [
+	"Andy",
 	"Anna",
 	"Bob",
 	"Bub",
@@ -6,6 +7,7 @@ export const dummyData = [
 	"Chris",
 	"Diane",
 	"Ellen",
+	"Grace",
 	"Gunther",
 	"Holly",
 	"Ivan",
@@ -14,6 +16,9 @@ export const dummyData = [
 	"JC",
 	"Jimmy",
 	"Jon",
+	"Kelly",
+	"Kym",
+	"Lewis",
 	"Liara",
 	"Lisa",
 	"Nicolette",
@@ -21,6 +26,9 @@ export const dummyData = [
 	"Paolo",
 	"Paul",
 	"Rebecca",
+	"Roland",
+	"Sarina",
+	"Vince",
 	"Winston",
 	"Zaeed"
 ];

@@ -23,7 +23,7 @@ export class EmailButton extends Component {
 			output = (
 				<Wrapper>
 					<a
-						href={`mailto:?subject=Euro%202020%20Sweepstake%21&body=Hi%20everybody%21%0A%0AThe%20draw%20for%20the%20Euro%202020%20Sweepstake%20has%20been%20made%20and%20here%20are%20the%20results%3A%0A%0A${results}%0AGood%20luck%20everyone!`}
+						href={`mailto:?subject=World%20Cup%202022%20Sweepstake%21&body=Hi%20everybody%21%0A%0AThe%20draw%20for%20the%20World%20Cup%202022%20Sweepstake%20has%20been%20made%20and%20here%20are%20the%20results%3A%0A%0A${results}%0AGood%20luck%20everyone!`}
 					>
 						Email draw results
 					</a>
